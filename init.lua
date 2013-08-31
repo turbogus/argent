@@ -41,7 +41,7 @@ minetest.register_craft(
 })
 
 --**************************************************************************************
---Pièce en charbon :
+--Pièce en charbon (1 centimes) :
 minetest.register_craftitem("argent:piece_charbon", {
 	description = " piece en charbon",
 	inventory_image = "piece_charbon.png",
@@ -61,7 +61,7 @@ minetest.register_craft(
 		};
 });
 
---Tube de piece en charbon :
+--Tube de piece en charbon (9 centimes) :
 minetest.register_craftitem("argent:tube_piece_charbon", {
 	description = "tube de 9 pieces en charbon",
 	inventory_image = "tube_piece_charbon.png",
@@ -87,7 +87,7 @@ minetest.register_craft(
 }
 )
 
---Pièce en acier :
+--Pièce en acier (10 centimes) :
 minetest.register_craftitem("argent:piece_acier", {
 	description = " piece en acier",
 	inventory_image = "piece_acier.png",
@@ -114,7 +114,7 @@ minetest.register_craft(
 }
 )
 
---Tube de piece en acier :
+--Tube de piece en acier (90 centimes) :
 minetest.register_craftitem("argent:tube_piece_acier", {
 	description = "tube de 9 pieces en acier",
 	inventory_image = "tube_piece_acier.png",
@@ -140,6 +140,112 @@ minetest.register_craft(
 }
 )
 
+--Pièce en argent (50 centimes) :
+minetest.register_craftitem("argent:piece_argent", {
+	description = " piece en argent",
+	inventory_image = "piece_argent.png",
+})
+minetest.register_craft(
+{
+	output = "argent:piece_argent";
+	recipe = 
+		{
+			{"argent:poincon"},
+			{"default:silver_ingot"},
+		};
+	replacements = 
+		{
+			{"argent:poincon","argent:poincon"},
+		};
+});
+minetest.register_craft(
+{
+	output = "argent:piece_argent",
+	recipe = {
+			{"argent:piece_acier","argent:piece_acier","argent:piece_acier"},
+			{"argent:piece_acier","argent:piece_acier"},
+		}
+}
+)
+
+--Tube de pièces en argent (4€ 50) :
+minetest.register_craftitem("argent:tube_piece_argent", {
+	description = "tube de 9 pieces en argent",
+	inventory_image = "tube_piece_argent.png",
+})
+minetest.register_craft(
+{
+	output = "argent:tube_piece_argent",
+	recipe = 
+		{
+			{"argent:piece_argent","argent:piece_argent","argent:piece_argent"},
+			{"argent:piece_argent","argent:piece_argent","argent:piece_argent"},
+			{"argent:piece_argent","argent:piece_argent","argent:piece_argent"},
+		}
+}
+)
+minetest.register_craft(
+{
+	output = "argent:piece_argent 9",
+	recipe = 
+		{
+			{"argent:tube_piece_argent"},
+		}
+}
+)
+
+--Pièce en or (1€) :
+minetest.register_craftitem("argent:piece_or", {
+	description = " piece en or",
+	inventory_image = "piece_or.png",
+})
+minetest.register_craft(
+{
+	output = "argent:piece_or";
+	recipe = 
+		{
+			{"argent:poincon"},
+			{"default:gold_ingot"},
+		};
+	replacements = 
+		{
+			{"argent:poincon","argent:poincon"},
+		};
+});
+minetest.register_craft(
+{
+	output = "argent:piece_or",
+	recipe = {
+			{"argent:piece_argent","argent:piece_argent"},
+		}
+}
+)
+
+--Tube de pièces en or (9€) :
+minetest.register_craftitem("argent:tube_piece_or", {
+	description = "tube de 9 pieces en or",
+	inventory_image = "tube_piece_or.png",
+})
+minetest.register_craft(
+{
+	output = "argent:tube_piece_or",
+	recipe = 
+		{
+			{"argent:piece_or","argent:piece_or","argent:piece_or"},
+			{"argent:piece_or","argent:piece_or","argent:piece_or"},
+			{"argent:piece_or","argent:piece_or","argent:piece_or"},
+		}
+}
+)
+minetest.register_craft(
+{
+	output = "argent:piece_or 9",
+	recipe = 
+		{
+			{"argent:tube_piece_or"},
+		}
+}
+)
 --**************************************************************************************
 --Billet de 10
 minetest.register_craftitem("argent:billet10", {
@@ -152,7 +258,7 @@ minetest.register_craft(
 	recipe=
 		{
 			{"argent:tampon"},
-			{"default:steel_ingot 10"},
+			{"default:gold_ingot 10"},
 			{"default:paper"},
 		};
 	replacements = 
@@ -165,7 +271,7 @@ minetest.register_craft(
 	output="argent:billet10",
 	recipe=
 	{
-		{"argent:tube_piece_acier","argent:piece_acier"},
+		{"argent:tube_piece_or","argent:piece_or"},
 	}
 }
 )
@@ -182,7 +288,7 @@ minetest.register_craftitem("argent:billet20", {
 --	recipe=
 --		{
 --			{"argent:tampon"},
---			{"default:steel_ingot 20"},
+--			{"default:gold_ingot 20"},
 --			{"default:paper"},
 --		};
 --	replacements=
@@ -195,9 +301,9 @@ minetest.register_craft(
 	output="argent:billet20",
 	recipe=
 	{	
-		{"argent:piece_acier","argent:piece_acier"},
-		{"argent:tube_piece_acier"},
-		{"argent:tube_piece_acier"},
+		{"argent:piece_or","argent:piece_or"},
+		{"argent:tube_piece_or"},
+		{"argent:tube_piece_or"},
 		
 	}
 }
@@ -226,7 +332,7 @@ minetest.register_craft(
 	recipe=
 		{
 			{"argent:tampon"},
-			{"default:steel_ingot 50"},
+			{"default:gold_ingot 50"},
 			{"default:paper"},
 		};
 	replacements=
@@ -248,8 +354,8 @@ minetest.register_craft(
 	output="argent:billet50",
 	recipe=
 	{
-		{"argent:piece_charbon 99","argent:piece_charbon 99","argent:piece_charbon 99"},
-		{"argent:piece_charbon 99","argent:piece_charbon 99","argent:piece_charbon 5"},
+		{"argent:piece_acier 99","argent:piece_acier 99","argent:piece_acier 99"},
+		{"argent:piece_acier 99","argent:piece_acier 99","argent:piece_acier 5"},
 	}
 }
 )
@@ -288,21 +394,6 @@ minetest.register_craftitem("argent:billet100", {
 	inventory_image = "billet100.png",
 })
 
-
-minetest.register_craft(
-{
-	output = "argent:billet100";
-	recipe =
-		{
-			{"argent:tampon"},
-			{"default:steel_ingot ","default:steel_ingot"},
-			{"default:paper"},
-		};
-	replacements=
-		{
-			{"argent:tampon","argent:tampon"},
-		};
-});
 minetest.register_craft(
 {
 	output="argent:billet100",
@@ -312,6 +403,10 @@ minetest.register_craft(
 			{"default:mese_crystal"},
 			{"default:paper"},
 		}
+	replacements = 
+		{
+			{"argent:tampon","argent:tampon"},
+		};
 }
 )
 minetest.register_craft(
@@ -319,7 +414,7 @@ minetest.register_craft(
 	output="argent:billet100",
 	recipe=
 	{
-		{"argent:piece_acier 99","argent:piece_acier"},
+		{"argent:piece_or 99","argent:piece_or"},
 	}
 }
 )
