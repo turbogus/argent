@@ -1,7 +1,7 @@
 --[[ 
 
 Argent, un petit mod permettant de crééer une économie sur un serveur minetest.
-Créé par turbogus
+Créé par turbogus et aidé par Zaraki98
 Code et graphisme en GPL
 
 ]]--
@@ -345,7 +345,7 @@ minetest.register_craft(
 	output="argent:billet50",
 	recipe=
 	{
-		{"argent:piece_acier 50"},
+		{"argent:piece_or 50"},
 	}
 }
 )
@@ -440,19 +440,135 @@ minetest.register_craft(
 ]]--
 
 --Billet de 200
+minetest.register_craftitem("argent:billet200", {
+	description = " billet de 200",
+	inventory_image = "billet200.png",
+})
+
+minetest.register_craft(
+{
+	output="argent:billet200",
+	recipe=
+		{
+			{"argent:tampon"},
+			{"default:mese_crystal 2"},
+			{"default:paper"},
+		}
+	replacements = 
+		{
+			{"argent:tampon","argent:tampon"},
+		};
+}
+)
+minetest.register_craft(
+{
+	output="argent:billet200",
+	recipe=
+	{
+		{"argent:piece_or 99","argent:piece_or 99","argent:piece_or 2"},
+	}
+}
+)
+minetest.register_craft(
+{
+	output="argent:billet200",
+	recipe=
+	{
+		{"argent:billet100 2"},
+	}
+}
+)
+minetest.register_craft(
+{
+	output="argent:billet200",
+	recipe=
+	{
+		{"argent:billet10 20"},
+	}
+}
+)
+minetest.register_craft(
+{
+	output="argent:billet200",
+	recipe=
+	{
+		{"argent:billet20 10"},
+	}
+}
+)
 
 --Billet de 500
+minetest.register_craftitem("argent:billet500", {
+	description = " billet de 500",
+	inventory_image = "billet500.png",
+})
+
+minetest.register_craft(
+{
+	output="argent:billet500",
+	recipe=
+		{
+			{"argent:tampon"},
+			{"default:mese_crystal 5"},
+			{"default:paper"},
+		}
+	replacements = 
+		{
+			{"argent:tampon","argent:tampon"},
+		};
+}
+)
+minetest.register_craft(
+{
+	output="argent:billet500",
+	recipe=
+	{
+		{"argent:piece_or 99","argent:piece_or 99","argent:piece_or 99"},
+		{"argent:piece_or 99","argent:piece_or 99","argent:piece_or 5"},
+	}
+}
+)
+minetest.register_craft(
+{
+	output="argent:billet500",
+	recipe=
+	{
+		{"argent:billet100 5"},
+	}
+}
+)
+minetest.register_craft(
+{
+	output="argent:billet500",
+	recipe=
+	{
+		{"argent:billet10 50"},
+	}
+}
+)
+minetest.register_craft(
+{
+	output="argent:billet500",
+	recipe=
+	{
+		{"argent:billet20 25"},
+	}
+}
+)
+
 
 --[[
 
 Convertions :
 
 - 10 pièces en charbon = 1 pièce en fer
-- 100 pièces en charbon = 10 pièces en fer = 1 billet de 10 // 1 billet de 10 = 1 feuille à billet + 10 iron_lump + tampon 
-- 200 pièce en charbon = 20 pièces en fer = 1 billet de 20 // 1 billet de 20 = 1 feuille à billet + 20 iron_lump + tampon
-- 500 pièces en charbon = 50 pièces en fer = 1 billet de 50 // 1 billet de 50 = 1 feuille à billet + 50 iron_lump + tampon
-- 1000 pièces en charbon = 100 pièces en fer = 1 billet de 100 // 1 billet de 100 = 1 feuille à billet + 1 mese_diamond + tampon
-- 2000 pièces en charbon = 200 pièces en fer = 1 billet de 200 // 1 billet de 200 = 1 feuille à billet + 2 mese_diamond + tampon
-- 5000 pièce en charbon = 500 pièces en fer = 1 billet de 500 // 1 billet de 500 = 1 feuille à billet + 5 mese diamond + tampon 
+- 50 pièces en charbon = 5 pièces en fer = 1 pièce en argent
+- 100 pièces en charbon = 10 pièces en fer = 2 pièces en argent = 1 pièce en or 
+- 1.000 pièces en charbon = 100 pièces en fer = 20 pièces en argent = 10 pièces en or = 1 billet de 10 // 1 billet de 10 = 1 feuille à billet + 10 gold_ingot + tampon
+- 2.000 pièces en charbon = 200 pièces en fer = 40 pièces en argent = 20 pièces en or = 1 billet de 20 // 1 billet de 20 = 1 feuille à billet + 20 gold_ingot + tampon
+- 5.000 pièces en charbon = 500 pièces en fer = 100 pièces en argent = 50 pièces en or = 1 billet de 50 // 1 billet de 50 = 1 feuille à billet + 50 gold_ingot + tampon
+- 10.000 pièces en charbon = 1.000 pièces en fer = 200 pièces en argent = 100 pièces en or = 1 billet de 100 // 1 billet de 100 = 1 feuille à billet + 1 mese_crystal + tampon
+- 20.000 pièces en charbon = 2.000 pièces en fer = 400 pièces en argent = 200 pièces en or = 1 billet de 200 // 1 billet de 200 = 1 feuille à billet + 2 mese_crystal + tampon
+- 50.000 pièce en charbon = 5.000 pièces en fer = 1.000 pièces en argent = 500 pièces en or = 1 billet de 500 // 1 billet de 500 = 1 feuille à billet + 5 mese_crystal + tampon 
 
 ]]--
