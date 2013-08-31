@@ -496,14 +496,14 @@ minetest.register_craft(
 
 Convertions :
 
-- 10 pièces en charbon = 1 pièce en fer
-- 50 pièces en charbon = 5 pièces en fer = 1 pièce en argent
-- 100 pièces en charbon = 10 pièces en fer = 2 pièces en argent = 1 pièce en or 
-- 1.000 pièces en charbon = 100 pièces en fer = 20 pièces en argent = 10 pièces en or = 1 billet de 10 // 1 billet de 10 = 1 feuille à billet + 10 gold_ingot + tampon
-- 2.000 pièces en charbon = 200 pièces en fer = 40 pièces en argent = 20 pièces en or = 1 billet de 20 // 1 billet de 20 = 1 feuille à billet + 20 gold_ingot + tampon
-- 5.000 pièces en charbon = 500 pièces en fer = 100 pièces en argent = 50 pièces en or = 1 billet de 50 // 1 billet de 50 = 1 feuille à billet + 50 gold_ingot + tampon
-- 10.000 pièces en charbon = 1.000 pièces en fer = 200 pièces en argent = 100 pièces en or = 1 billet de 100 // 1 billet de 100 = 1 feuille à billet + 1 mese_crystal + tampon
-- 20.000 pièces en charbon = 2.000 pièces en fer = 400 pièces en argent = 200 pièces en or = 1 billet de 200 // 1 billet de 200 = 1 feuille à billet + 2 mese_crystal + tampon
-- 50.000 pièce en charbon = 5.000 pièces en fer = 1.000 pièces en argent = 500 pièces en or = 1 billet de 500 // 1 billet de 500 = 1 feuille à billet + 5 mese_crystal + tampon 
+- 10 pièces en charbon = 1 pièce en etain
+- 50 pièces en charbon = 5 pièces en etain = 1 pièce en cuivre
+- 100 pièces en charbon = 10 pièces en etain = 2 pièces en cuivre = 1 pièce en acier 
+- 1.000 pièces en charbon = 100 pièces en etain = 20 pièces en cuivre = 10 pièces en acier = 1 billet de 10 // 1 billet de 10 = 1 feuille à billet + silver_ingot + tampon
+- 2.000 pièces en charbon = 200 pièces en etain = 40 pièces en cuivre = 20 pièces en acier = 1 billet de 20 // 1 billet de 20 = 1 feuille à billet + gold_ingot + tampon
+- 5.000 pièces en charbon = 500 pièces en etain = 100 pièces en cuivre = 50 pièces en acier = 1 billet de 50 // 1 billet de 50 = 1 feuille à billet + mese_crystal + tampon
+- 10.000 pièces en charbon = 1.000 pièces en etain = 200 pièces en cuivre = 100 pièces en acier = 1 billet de 100 // 1 billet de 100 = 1 feuille à billet + diamond_crystal + tampon
+- 20.000 pièces en charbon = 2.000 pièces en etain = 400 pièces en cuivre = 200 pièces en acier = 1 billet de 200 // 1 billet de 200 = 1 feuille à billet + 2 diamond_crystal + tampon
+- 50.000 pièce en charbon = 5.000 pièces en etain = 1.000 pièces en cuivre = 500 pièces en acier = 1 billet de 500 // 1 billet de 500 = 1 feuille à billet + mese_block + tampon 
 
 ]]--
