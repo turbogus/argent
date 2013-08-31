@@ -196,7 +196,7 @@ minetest.register_craft(
 	recipe = 
 		{
 			{"argent:poincon"},
-			{"default:iron_ingot"},
+			{"default:steel_ingot"},
 		};
 	replacements = 
 		{
@@ -368,7 +368,7 @@ minetest.register_craft(
 	recipe=
 		{
 			{"argent:tampon"},
-			{"default:diamond_crystal"},
+			{"default:diamond"},
 			{"default:paper"},
 		};
 	replacements = 
@@ -414,7 +414,7 @@ minetest.register_craft(
 	recipe=
 		{
 			{"","argent:tampon",""},
-			{"default:diamond_crystal","default:diamond_crystal",""},
+			{"default:diamond","default:diamond",""},
 			{"","default:paper",""},
 		};
 	replacements = 
