@@ -49,7 +49,7 @@ minetest.register_craftitem("argent:piece_charbon", {
 
 minetest.register_craft(
 {
-	output = "argent:piece_charbon";
+	output = "argent:piece_charbon 99";
 	recipe = 
 		{
 			{"argent:poincon"},
@@ -94,7 +94,7 @@ minetest.register_craftitem("argent:piece_acier", {
 })
 minetest.register_craft(
 {
-	output = "argent:piece_acier";
+	output = "argent:piece_acier 99";
 	recipe = 
 		{
 			{"argent:poincon"},
@@ -147,7 +147,7 @@ minetest.register_craftitem("argent:piece_argent", {
 })
 minetest.register_craft(
 {
-	output = "argent:piece_argent";
+	output = "argent:piece_argent 20";
 	recipe = 
 		{
 			{"argent:poincon"},
@@ -214,7 +214,7 @@ minetest.register_craft(
 });
 minetest.register_craft(
 {
-	output = "argent:piece_or",
+	output = "argent:piece_or 10",
 	recipe = {
 			{"argent:piece_argent","argent:piece_argent"},
 		}
