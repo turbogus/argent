@@ -6,5 +6,5 @@ Code et graphisme en GPL
 
 =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 
-Ce mod ajoute des pièces en charbon (1 centime), acier (10 centimes), argent (50 centimes) et or (1€) 
+Ce mod ajoute des pièces en charbon (1 centime), étain (10 centimes), cuivre (50 centimes) et acier (1€) 
 ainsi que des billets de 10, 20, 50, 100, 200 et 500.
