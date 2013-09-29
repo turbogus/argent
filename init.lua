@@ -9,8 +9,8 @@ Code et graphisme en GPL
 --**************************************************************************************
 --Poinçon à pièces :
 minetest.register_craftitem("argent:poincon", {
-description = "poincon",
-inventory_image = "poincon.png",
+    description = "poincon",
+    inventory_image = "poincon.png",
 })
 
 minetest.register_craft({
@@ -24,8 +24,8 @@ minetest.register_craft({
 
 --Tampon à billet :
 minetest.register_craftitem("argent:tampon", {
-description = "tampon",
-inventory_image = "tampon.png",
+    description = "tampon",
+    inventory_image = "tampon.png",
 })
 
 minetest.register_craft({
@@ -40,8 +40,8 @@ minetest.register_craft({
 --**************************************************************************************
 --Pièce en charbon (1 centimes) :
 minetest.register_craftitem("argent:piece_charbon", {
-description = " piece en charbon",
-inventory_image = "piece_charbon.png",
+    description = " piece en charbon",
+    inventory_image = "piece_charbon.png",
 })
 
 minetest.register_craft({
@@ -56,8 +56,8 @@ minetest.register_craft({
 
 --Tube de pièce en charbon (9 centimes) :
 minetest.register_craftitem("argent:tube_piece_charbon", {
-description = "tube de 9 pieces en charbon",
-inventory_image = "tube_piece_charbon.png",
+    description = "tube de 9 pieces en charbon",
+    inventory_image = "tube_piece_charbon.png",
 })
 minetest.register_craft({
     output = "argent:tube_piece_charbon",
