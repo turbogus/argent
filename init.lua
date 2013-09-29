@@ -59,6 +59,7 @@ minetest.register_craftitem("argent:tube_piece_charbon", {
     description = "tube de 9 pieces en charbon",
     inventory_image = "tube_piece_charbon.png",
 })
+
 minetest.register_craft({
     output = "argent:tube_piece_charbon",
     recipe =
@@ -67,8 +68,8 @@ minetest.register_craft({
         {"argent:piece_charbon","argent:piece_charbon","argent:piece_charbon"},
         {"argent:piece_charbon","argent:piece_charbon","argent:piece_charbon"},
     }
-}
-)
+})
+
 minetest.register_craft({
     output = "argent:piece_charbon 9",
     recipe = {
@@ -113,6 +114,7 @@ minetest.register_craft({
         {"argent:piece_etain","argent:piece_etain","argent:piece_etain"},
     }
 })
+
 minetest.register_craft({
     output = "argent:piece_etain 9",
     recipe = {
@@ -120,7 +122,7 @@ minetest.register_craft({
     }
 })
 
---Pi�ce en cuivre (50 centimes) :
+--Pièce en cuivre (50 centimes) :
 minetest.register_craftitem("argent:piece_cuivre", {
     description = " piece en cuivre",
     inventory_image = "piece_cuivre.png",
@@ -135,6 +137,14 @@ minetest.register_craft({
     replacements = {{"argent:poincon","argent:poincon"},
     };
 });
+
+minetest.register_craft({
+    output = "argent:piece_cuivre",
+    recipe = {
+        {"argent:piece_etain","argent:piece_etain","argent:piece_etain"},
+        {"argent:piece_etain","argent:piece_etain",""},
+    }
+})
 
 --Tube de pièces en cuivre (4€ 50) :
 minetest.register_craftitem("argent:tube_piece_cuivre", {
@@ -177,6 +187,13 @@ minetest.register_craft({
     output = "argent:piece_acier",
     recipe = {
         {"argent:piece_cuivre","argent:piece_cuivre"},
+    }
+})
+
+minetest.register_craft({
+    output = "argent:piece_acier",
+    recipe = {
+        {"argent:tube_piece_etain","argent:piece_etain"},
     }
 })
 
@@ -223,6 +240,14 @@ minetest.register_craft({
     output="argent:billet10",
     recipe= {
         {"argent:tube_piece_acier","argent:piece_acier"},
+    }
+})
+
+minetest.register_craft({
+    output="argent:billet10",
+    recipe= {
+        {"argent:tube_piece_cuivre","argent:piece_cuivre",""},
+        {"argent:tube_piece_cuivre","argent:piece_cuivre",""},
     }
 })
 
@@ -280,18 +305,18 @@ minetest.register_craft({
 minetest.register_craft({
     output="argent:billet50",
     recipe= {
+        {"argent:billet20"},
+        {"argent:billet20"},
         {"argent:billet10"},
-        {"argent:billet20"},
-        {"argent:billet20"},
     }
 })
 
 minetest.register_craft({
     output="argent:billet50",
     recipe= {
+        {"argent:billet20","",""},
         {"argent:billet10","",""},
-        {"argent:billet10","",""},
-        {"argent:billet10","argent:billet20",""},
+        {"argent:billet10","argent:billet10",""},
     }
 })
 
