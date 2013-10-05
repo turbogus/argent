@@ -7,6 +7,10 @@ Code et graphisme en GPL
 ]]--
 
 --**************************************************************************************
+
+--J'AI DIS, ON LAISSE COMMENTé !!!!!!
+
+--[[
 --Poinçon à pièces :
 minetest.register_craftitem("argent:poincon", {
     description = "poincon",
@@ -37,6 +41,7 @@ minetest.register_craft({
     }
 })
 
+]]--
 --**************************************************************************************
 --Pièce en charbon (1 centimes) :
 minetest.register_craftitem("argent:piece_charbon", {
