@@ -325,7 +325,7 @@ minetest.register_node("argent:cash", {
 	walkable = true,
 	pointable = true,
 	diggable = false,
-	groups = {cracky=2,crumbly=3},
+	groups = {unbreakable=1},
 	drop = "argent:cash" ,
 })
 minetest.register_on_punchnode(function(p, node, player)
