@@ -330,12 +330,14 @@ minetest.register_node("argent:cash", {
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
 		meta:set_string("formspec",
-				"size[5,1]"..
-				"item_image[0,0;1,1;argent:piece1]"..
-				"label[1,0.5;x1]"..
-				"item_image[2,0;1,1;default:cobble]"..
-				"label[3,0.5;x3]"..
-				"button[4,0;1,1;achat1;Achat]"
+				"size[5,2]"..
+				"label[0,0;Objets]"..
+				"label[2,0;Prix]"..
+				"item_image[0,1;1,1;argent:piece1]"..
+				"label[1,1.5;x3]"..
+				"item_image[2,1;1,1;default:cobble]"..
+				"label[3,1.5;x1]"..
+				"button[4,1;1,1;achat1;Achat]"
 				)
 		meta:set_string("infotext", "Block Cash")
 	end,
