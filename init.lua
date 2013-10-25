@@ -327,11 +327,25 @@ minetest.register_node("argent:cash", {
 	diggable = false,
 	groups = {unbreakable=1},
 	drop = "argent:cash" ,
+	on_construct = function(pos)
+		local meta = minetest.get_meta(pos)
+		meta:set_string("formspec",
+				"size[5,2]"..
+				"label[0,0;Objets]"..
+				"label[2,0;Prix]"..
+				"item_image[0,1;1,1;argent:piece1]"..
+				"label[1,1.5;x3]"..
+				"item_image[2,1;1,1;default:cobble]"..
+				"label[3,1.5;x1]"..
+				"button[4,1;1,1;achat1;Achat]"
+				)
+		meta:set_string("infotext", "Block Cash")
+	end,
+	on_receive_fields = function(pos, formname, fields, sender)
+		if fields["achat1"]=="Achat" and sender:get_inventory():contains_item("main", "default:cobble") then
+			sender:get_inventory():add_item('main', 'argent:piece1 3' )
+			sender:get_inventory():remove_item('main', 'default:cobble')
+		end
+		return true
+	end,
 })
-minetest.register_on_punchnode(function(p, node, player)
-	if node.name=="argent:cash" and player:get_inventory():contains_item('main', 'default:cobble') then
-		player:get_inventory():add_item('main', 'argent:piece1 3' )
-		player:get_inventory():remove_item('main', 'default:cobble')
-	end
-
-end)
