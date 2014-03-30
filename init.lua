@@ -445,7 +445,21 @@ Convertions :
 --Salaire post-reboot :
 
 local PIB = 2000000000 --PIB : 2M de Steins
-                       --NOTE : créer une fonction qui écrit dans un fichier le PIB et l'initialise au reboot
+
+
+fic = io.open(minetest.get_worldpath().."/money.txt", "r")
+money = 0
+for line in fic:lines() do
+  money = line+0
+end
+
+PIB = money
+
+minetest.register_on_shutdown (function()
+  fic = io.open(minetest.get_worldpath().."/money.txt", "a")
+  fic:write(PIB.."\n")
+  fic:close()
+end)
 
 local dejaconn = {} --Tableau qui contient les noms des joueurs qui se connectent
                     --NOTE : Inscire dans ce tableau les noms des joueurs "doublons" 
