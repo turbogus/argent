@@ -449,6 +449,9 @@ local PIB = 2000000000 --PIB : 2M de Steins
 
 fic = io.open(minetest.get_worldpath().."/money.txt", "r")
 money = 0
+if fic == nil then
+    fic = io.open(minetest.get_worldpath().."/money.txt", "w")
+end
 for line in fic:lines() do
   money = line+0
 end
@@ -457,6 +460,9 @@ PIB = money
 
 minetest.register_on_shutdown (function()
   fic = io.open(minetest.get_worldpath().."/money.txt", "a")
+  if fic == nil then
+    fic = io.open(minetest.get_worldpath().."/money.txt", "w")
+  end
   fic:write(PIB.."\n")
   fic:close()
 end)
