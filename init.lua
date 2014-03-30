@@ -440,3 +440,64 @@ Convertions :
 - 50.000 pièce en charbon = 5.000 pièces en etain = 1.000 pièces en cuivre = 500 pièces en acier = 1 billet de 500
 
 ]]--
+
+--**************************************************************************************
+--Salaire post-reboot :
+
+local PIB = 2000000000 --PIB : 2M de Steins
+                       --NOTE : créer une fonction qui écrit dans un fichier le PIB et l'initialise au reboot
+
+local dejaconn = {} --Tableau qui contient les noms des joueurs qui se connectent
+                    --NOTE : Inscire dans ce tableau les noms des joueurs "doublons" 
+                    --       ou qui ne doivent plus recevoir de salaire
+
+minetest.register_on_joinplayer(function (player)
+  local i = 0
+  while i <= table.getn(dejaconn) do
+    if dejaconn[i] == player:get_player_name() then
+      return
+    end
+    i = i+1
+  end
+  print (PIB >= 200)
+  if PIB >= 200 then
+    table.insert (dejaconn, 1, player:get_player_name())
+    player:get_inventory():add_item ('main', 'argent:billet200')
+    minetest.chat_send_player(player:get_player_name(), "Salaire versé. Bon jeu.", true)
+    PIB = PIB - 200
+  else
+    print ("Alerte, les caisses sont vides!")
+    minetest.chat_send_all ("Alerte, caisses vides!")
+  end
+end)
+
+--**************************************************************************************
+--Voir le PIB:
+
+minetest.register_chatcommand ("pib", {
+  privs = {server=true},
+  params = "",
+  description = "Voir la valeur du pib du serveur moins l'argent en circulation",
+  func = function (player)
+    minetest.chat_send_player (player, "PIB : "..PIB, true)
+    minetest.chat_send_player (player, "ARGENT CIRCULANT : "..2000000000-PIB, true)
+  end
+})
+
+--**************************************************************************************
+--Affichage de la liste des joueurs déjà connectés
+
+minetest.register_chatcommand ("alreadylogged", {
+  privs = {server = true},
+  description = "Imprime dans les log et le chat la liste des joueurs deja connectes ce jour",
+  func = function(name)
+    i = 0
+    while i <= table.getn(dejaconn) do
+      if dejaconn[i] ~= nil then
+        print ("Nom : "..dejaconn[i])
+        minetest.chat_send_player(minetest.get_player_by_name(name):get_player_name(), "Name : "..dejaconn[i].."", true)
+      end
+      i = i+1
+    end
+  end
+})
