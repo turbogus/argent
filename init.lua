@@ -1,7 +1,7 @@
 --[[
 
 Argent, un petit mod permettant de créer une économie sur un serveur minetest.
-Créé par turbogus, Zaraki98 et Ze_Escrobar
+Créé par turbogus, Zaraki98, Ze_Escrobar et Mg
 Code et graphisme en GPL
 
 ]]--
@@ -42,6 +42,7 @@ minetest.register_craft({
 minetest.register_craftitem("argent:piece_charbon", {
     description = " piece en charbon",
     inventory_image = "piece_charbon.png",
+    groups = {argent = 1},
 })
 
 minetest.register_craft({
@@ -58,6 +59,7 @@ minetest.register_craft({
 minetest.register_craftitem("argent:tube_piece_charbon", {
     description = "tube de 9 pieces en charbon",
     inventory_image = "tube_piece_charbon.png",
+    groups = {argent = 1},
 })
 
 minetest.register_craft({
@@ -81,6 +83,7 @@ minetest.register_craft({
 minetest.register_craftitem("argent:piece_etain", {
     description = " piece en etain",
     inventory_image = "piece_etain.png",
+    groups = {argent = 1},
 })
 
 minetest.register_craft({
@@ -104,6 +107,7 @@ minetest.register_craft({
 minetest.register_craftitem("argent:tube_piece_etain", {
     description = "tube de 9 pieces en etain",
     inventory_image = "tube_piece_etain.png",
+    groups = {argent = 1},
 })
 
 minetest.register_craft({
@@ -126,6 +130,7 @@ minetest.register_craft({
 minetest.register_craftitem("argent:piece_cuivre", {
     description = " piece en cuivre",
     inventory_image = "piece_cuivre.png",
+    groups = {argent = 1},
 })
 
 minetest.register_craft({
@@ -150,6 +155,7 @@ minetest.register_craft({
 minetest.register_craftitem("argent:tube_piece_cuivre", {
     description = "tube de 9 pieces en cuivre",
     inventory_image = "tube_piece_cuivre.png",
+    groups = {argent = 1},
 })
 
 minetest.register_craft({
@@ -170,8 +176,9 @@ minetest.register_craft({
 
 --Pièce en acier (1€) :
 minetest.register_craftitem("argent:piece_acier", {
-description = " piece en acier",
-inventory_image = "piece_acier.png",
+  description = " piece en acier",
+  inventory_image = "piece_acier.png",
+  groups = {argent = 1},
 })
 minetest.register_craft({
     output = "argent:piece_acier";
@@ -201,6 +208,7 @@ minetest.register_craft({
 minetest.register_craftitem("argent:tube_piece_acier", {
     description = "tube de 9 pieces en acier",
     inventory_image = "tube_piece_acier.png",
+    groups = {argent = 1},
 })
 
 minetest.register_craft({
@@ -223,6 +231,7 @@ minetest.register_craft({
 minetest.register_craftitem("argent:billet10", {
     description = " billet de 10",
     inventory_image = "billet10.png",
+    groups = {argent = 1},
 })
 
 minetest.register_craft({
@@ -255,6 +264,7 @@ minetest.register_craft({
 minetest.register_craftitem("argent:billet20", {
     description = " billet de 20",
     inventory_image = "billet20.png",
+    groups = {argent = 1},
 })
 
 minetest.register_craft({
@@ -280,6 +290,7 @@ minetest.register_craft({
 minetest.register_craftitem("argent:billet50", {
     description = " billet de 50",
     inventory_image = "billet50.png",
+    groups = {argent = 1},
 })
 
 minetest.register_craft({
@@ -324,6 +335,7 @@ minetest.register_craft({
 minetest.register_craftitem("argent:billet100", {
     description = " billet de 100",
     inventory_image = "billet100.png",
+    groups = {argent = 1},
 })
 
 minetest.register_craft({
@@ -359,6 +371,7 @@ minetest.register_craft({
 minetest.register_craftitem("argent:billet200", {
     description = " billet de 200",
     inventory_image = "billet200.png",
+    groups = {argent = 1},
 })
 
 minetest.register_craft({
@@ -393,6 +406,7 @@ minetest.register_craft({
 minetest.register_craftitem("argent:billet500", {
     description = " billet de 500",
     inventory_image = "billet500.png",
+    groups = {argent = 1},
 })
 
 minetest.register_craft({
@@ -424,7 +438,6 @@ minetest.register_craft({
 })
 
 
-
 --[[
 
 Convertions :
@@ -441,83 +454,84 @@ Convertions :
 
 ]]--
 
---**************************************************************************************
---Salaire post-reboot :
+-- Système de contrôle de la quantité d'argent en circulation pour éviter l'inflation :
 
-local PIB = 2000000000 --PIB : 2M de Steins
+local PIB = 2000000000
 
-
-fic = io.open(minetest.get_worldpath().."/money.txt", "r")
-money = 0
-if fic == nil then
-    fic = io.open(minetest.get_worldpath().."/money.txt", "w")
-end
-for line in fic:lines() do
-  money = line+0
-end
-
-PIB = money
-
-minetest.register_on_shutdown (function()
-  fic = io.open(minetest.get_worldpath().."/money.txt", "a")
-  if fic == nil then
-    fic = io.open(minetest.get_worldpath().."/money.txt", "w")
-  end
-  fic:write(PIB.."\n")
-  fic:close()
-end)
-
-local dejaconn = {} --Tableau qui contient les noms des joueurs qui se connectent
-                    --NOTE : Inscire dans ce tableau les noms des joueurs "doublons" 
-                    --       ou qui ne doivent plus recevoir de salaire
-
-minetest.register_on_joinplayer(function (player)
-  local i = 0
-  while i <= table.getn(dejaconn) do
-    if dejaconn[i] == player:get_player_name() then
-      return
+local argentinit = function ()
+  minetest.register_on_shutdown (function()
+    fic = io.open(minetest.get_worldpath().."/money.txt", "a")
+    if fic == nil then
+      fic = io.open(minetest.get_worldpath().."/money.txt", "w")
     end
-    i = i+1
-  end
-  print (PIB >= 200)
-  if PIB >= 200 then
-    table.insert (dejaconn, 1, player:get_player_name())
-    player:get_inventory():add_item ('main', 'argent:billet200')
-    minetest.chat_send_player(player:get_player_name(), "Salaire versé. Bon jeu.", true)
-    PIB = PIB - 200
-  else
-    print ("Alerte, les caisses sont vides!")
-    minetest.chat_send_all ("Alerte, caisses vides!")
-  end
-end)
+    fic:write(PIB.."\n")
+    fic:close()
+  end)
+  
+  minetest.register_chatcommand ("pib", {
+    privs = {server},
+    params = "",
+    description = "Voir la valeur du pib du serveur moins l'argent en circulation",
+    func = function (player)
+      minetest.chat_send_player (player, "PIB : "..PIB, true)
+      minetest.chat_send_player (player, "ARGENT CIRCULANT : "..2000000000-PIB, true)
+    end
+  })
 
---**************************************************************************************
---Voir le PIB:
+  local dejaconn = {}
 
-minetest.register_chatcommand ("pib", {
-  privs = {server=true},
-  params = "",
-  description = "Voir la valeur du pib du serveur moins l'argent en circulation",
-  func = function (player)
-    minetest.chat_send_player (player, "PIB : "..PIB, true)
-    minetest.chat_send_player (player, "ARGENT CIRCULANT : "..2000000000-PIB, true)
-  end
-})
-
---**************************************************************************************
---Affichage de la liste des joueurs déjà connectés
-
-minetest.register_chatcommand ("alreadylogged", {
-  privs = {server = true},
-  description = "Imprime dans les log et le chat la liste des joueurs deja connectes ce jour",
-  func = function(name)
-    i = 0
+  minetest.register_on_joinplayer(function (player)
+    local i = 0
     while i <= table.getn(dejaconn) do
-      if dejaconn[i] ~= nil then
-        print ("Nom : "..dejaconn[i])
-        minetest.chat_send_player(minetest.get_player_by_name(name):get_player_name(), "Name : "..dejaconn[i].."", true)
+      if dejaconn[i] == player:get_player_name() then
+        return
       end
       i = i+1
     end
+    if PIB >= 200 then
+      table.insert (dejaconn, 1, player:get_player_name())
+      player:get_inventory():add_item ('main', 'argent:billet200')
+      minetest.chat_send_player(player:get_player_name(), "Salaire versé. Bon jeu.", true)
+      PIB = PIB - 200
+    else
+      print ("Alerte, les caisses sont vides!")
+      minetest.chat_send_all ("Alerte, caisses vides!")
+    end
+  end)
+
+  minetest.register_chatcommand ("alreadylogged", {
+    privs = {server = true},
+    description = "Imprime dans les log et le chat la liste des joueurs deja connectes ce jour",
+    func = function(name)
+      i = 0
+      while i <= table.getn(dejaconn) do
+        if dejaconn[i] ~= nil then
+          print ("Nom : "..dejaconn[i])
+          minetest.chat_send_player(minetest.get_player_by_name(name):get_player_name(), "Name : "..dejaconn[i].."", true)
+        end
+        i = i+1
+      end
+    end
+  })
+end
+
+local fic = io.open(minetest.get_worldpath().."/money.txt", "r")
+print ("[argent] Initialisation du PIB...")
+print ("[argent] Ouverture de la bourse...")
+argentinit()
+if fic == nil then
+  fic = io.open(minetest.get_worldpath().."/money.txt", "w")
+  fic:close()
+  fic = io.open(minetest.get_worldpath().."/money.txt", "a")
+  fic:write("2000000000\n")
+  PIB = 2000000000
+  return
+end
+money = 0
+for line in fic:lines() do
+  if line ~= nil then
+    money = line+0
   end
-})
+end
+fic:close()
+PIB = money
