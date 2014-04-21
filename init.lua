@@ -489,9 +489,12 @@ local argentinit = function ()
     if PIB > minetest.registered_items[itemstack:get_name()].param1 then
       PIB = PIB-minetest.registered_items[itemstack:get_name()].param1
     else
+      player:get_inventory():set_list("craft",old_craft_grid)
+      itemstack:clear()
       minetest.chat_send_player(player:get_player_name(), "Plus d'argent dans les caisses!!", true)
     end
   end)
+  
   minetest.register_on_shutdown (function()
     fic = io.open(minetest.get_worldpath().."/money.txt", "a")
     if fic == nil then
@@ -516,7 +519,6 @@ local argentinit = function ()
   minetest.register_on_joinplayer(function (player)
     local i = 0
     playermoney = io.open(minetest.get_worldpath().."/moneyplayers.txt", "a")
-   -- playermoney:lines()
     for line in io.lines(minetest.get_worldpath().."/moneyplayers.txt") do
       if line ~= nil then
         if player:get_player_name() == line then break end
