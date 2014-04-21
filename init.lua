@@ -516,7 +516,7 @@ local argentinit = function ()
   minetest.register_on_joinplayer(function (player)
     local i = 0
     playermoney = io.open(minetest.get_worldpath().."/moneyplayers.txt", "a")
-    playermoney:lines()
+   -- playermoney:lines()
     for line in io.lines(minetest.get_worldpath().."/moneyplayers.txt") do
       if line ~= nil then
         if player:get_player_name() == line then break end
@@ -547,7 +547,7 @@ local argentinit = function ()
 end
 
 local playermny = io.open(minetest.get_worldpath().."/moneyplayers.txt", "r")
-print(playermny)
+--print(playermny)
 if playermny == nil then
   playermny = io.open(minetest.get_worldpath().."/moneyplayers.txt", "w")
 end
