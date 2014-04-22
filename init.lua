@@ -521,7 +521,7 @@ local argentinit = function ()
     playermoney = io.open(minetest.get_worldpath().."/moneyplayers.txt", "a")
     for line in io.lines(minetest.get_worldpath().."/moneyplayers.txt") do
       if line ~= nil then
-        if player:get_player_name() == line then break end
+        if player:get_player_name() == line then return end
       end
     end
     print(2)
