@@ -13,14 +13,6 @@ minetest.register_craftitem("argent:poincon", {
     inventory_image = "poincon.png",
 })
 
-minetest.register_craft({
-    output = "argent:poincon",
-    recipe = {
-        {"","default:stick",""},
-        {"","default:stick",""},
-        {"default:steel_ingot","default:steel_ingot","default:steel_ingot"},
-    }
-})
 
 --Tampon à billet :
 minetest.register_craftitem("argent:tampon", {
@@ -28,14 +20,6 @@ minetest.register_craftitem("argent:tampon", {
     inventory_image = "tampon.png",
 })
 
-minetest.register_craft({
-    output = "argent:tampon",
-    recipe = {
-        {"","default:stick",""},
-        {"default:steel_ingot","default:steel_ingot","default:steel_ingot"},
-        {"default:steel_ingot","default:steel_ingot","default:steel_ingot"},
-    }
-})
 
 --**************************************************************************************
 --Pièce en charbon (1 centimes) :
