@@ -3,6 +3,8 @@
 Argent, un petit mod permettant de créer une économie sur un serveur minetest.
 Créé par turbogus, Zaraki98, Ze_Escrobar et Mg
 Code et graphisme en GPL
+Dernière modification par Mg le 1/6/14
+Version stable
 
 ]]--
 
@@ -81,13 +83,6 @@ minetest.register_craft({
     };
 });
 
-minetest.register_craft({
-    output = "argent:piece_etain",
-    recipe = {
-        {"argent:tube_piece_charbon","argent:piece_charbon"},
-    }
-})
-
 --Tube de pièce en etain (90 centimes) :
 minetest.register_craftitem("argent:tube_piece_etain", {
     param1 = 0.9,
@@ -130,14 +125,6 @@ minetest.register_craft({
     };
 });
 
-minetest.register_craft({
-    output = "argent:piece_cuivre",
-    recipe = {
-        {"argent:piece_etain","argent:piece_etain","argent:piece_etain"},
-        {"argent:piece_etain","argent:piece_etain",""},
-    }
-})
-
 --Tube de pièces en cuivre (4€ 50) :
 minetest.register_craftitem("argent:tube_piece_cuivre", {
     param1 = 4.5,
@@ -178,20 +165,6 @@ minetest.register_craft({
     replacements = {{"argent:poincon","argent:poincon"},
     };
 });
-
-minetest.register_craft({
-    output = "argent:piece_acier",
-    recipe = {
-        {"argent:piece_cuivre","argent:piece_cuivre"},
-    }
-})
-
-minetest.register_craft({
-    output = "argent:piece_acier",
-    recipe = {
-        {"argent:tube_piece_etain","argent:piece_etain"},
-    }
-})
 
 --Tube de pièces en acier (9€) :
 minetest.register_craftitem("argent:tube_piece_acier", {
@@ -573,8 +546,8 @@ minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv
 end)
 
 
---[[************************************************************************
---Bloc banque
+--************************************************************************
+--Bloc banque (echange)
 minetest.register_node("argent:banque", {
 	description = "Banque",
 	param1 = {},
@@ -587,12 +560,14 @@ minetest.register_node("argent:banque", {
       "invsize[10,10;]"..
       "image[0,0;1,1;tampon.png]"..
       "image[9,0;1,1;poincon.png]"..
-      "label[1,0;Steinheim Banque]"..
+      "label[3.5,0;Steinheim Banque]"..
+      "label[1,2;Entree]"..
+      "label[1,5;Reste]"..
       "list[current_name;sbbinput;1,3;1,1;]"..
       "list[context;sbbrecycle;1,4;1,1;]"..
       "list[context;sbboutput;3,2;5,3;]"..
       "list[context;sbbpaper;9,3;1,1;]"..
-      "button[9,3.5;3,3;sbbpbutton;Imprimer le reçu]"..
+      "button[8.1,3.3;2,3;sbbpbutton;Imprimer le recu]"..
       "image[2,3;1,1;argent_fleche.png]"..
       "list[current_player;main;1,6;8,4;]"
     )
@@ -641,12 +616,18 @@ minetest.register_node("argent:banque", {
       local tabval = {[1] = 0.01, [2] = 0.09, [3] = 0.1, [4] = 0.9, [5] = 0.5, [6] = 4.5, [7] = 1, [8] = 9, [9] = 10, [10] = 20, [11] = 50, [12] = 100, [13] = 200, [14] = 500}
       local tabmny = {[1] = "argent:piece_charbon", [2] = "argent:tube_piece_charbon", [3] = "argent:piece_etain", [4] = "argent:tube_piece_etain", [5] = "argent:piece_cuivre", [6] = "argent:tube_piece_cuivre", [7] = "argent:piece_acier", [8] = "argent:tube_piece_acier", [9] = "argent:billet10", [10] = "argent:billet20", [11] = "argent:billet50", [12] = "argent:billet100", [13] = "argent:billet200", [14] = "argent:billet500"}
       table.insert(minetest.registered_nodes["argent:banque"].param1, 1,{[1] = valtot, [2] = valprise, [3] = player:get_player_name(), [4] = pos.x, [5] = pos.y, [6] = pos.z})
-      print("stackvalf "..stackvalf)
-      print("mstackvalf "..mstackvalf)
-      print("valtot "..valtot)
-      print("valprise "..valprise)
-      print("reste "..reste)
-      --[[moneystack:take_item(moneystack:get_name().." "..(moneystack:get_count()-((valtot-(valprise+((valtot-valprise)%mstackvalf)))/stackvalf)))
+      --moneystack:take_item(moneystack:get_name().." "..(moneystack:get_count()-((valtot-(valprise+((valtot-valprise)%mstackvalf)))/stackvalf)))
+      minetest.log("action", "Player "
+                  ..player:get_player_name() --Player
+                  .." exchanged "        
+                  ..moneystack:get_name()    --Put item name
+                  .." "
+                  ..moneystack:get_count()   --Put item count
+                  .." (input) with "
+                  ..stack:get_name()         --Taken item name
+                  .." "
+                  ..stack:get_count()        --Taken item count
+                  .." (output)")
       if reste ~= 0 then
         print(0)
         cmptr = 14
@@ -680,7 +661,6 @@ minetest.register_node("argent:banque", {
     return inv:is_empty("sbbinput") and inv:is_empty("sbboutput") and player:get_wielded_item():get_name() == "maptools:pick_admin"
   end,
   on_receive_fields = function (pos, formname, fields, sender)
-    table.foreach(fields,print)
     if fields.quit then return end
     local inv = minetest.get_meta(pos):get_inventory()
     local metadatapaper = ""
@@ -701,6 +681,10 @@ minetest.register_node("argent:banque", {
     end
     metadatapaper = metadatapaper.."\n"
     local chestpos = minetest.find_node_near(pos, 1, "default:chest") or minetest.find_node_near(pos, 1, "default:chest_locked")
+    if metadatapaper == "\n" then 
+      minetest.chat_send_player(sender:get_player_name(), "Vous n'avez rien echange, rien a imprimer.", true)
+      return
+    end
     if chestpos == nil then print("[argent] Plus de papier a la banque en "..pos.x..","..pos.y..","..pos.z)
       minetest.chat_send_player(sender:get_player_name(),"Impossible d'imprimer le recu, plus de papier...", true)
     else
@@ -743,4 +727,4 @@ function setinventory(pos)
       [13] = "argent:billet200 "..qttfrmula(valf,200),
       [14] = "argent:billet500 "..qttfrmula(valf,500),
       [15] = ""})
-end]]--
+end
