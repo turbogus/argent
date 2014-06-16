@@ -528,3 +528,127 @@ minetest.register_craft({
         {"argent:billet500"},
     }
 })
+
+]]---- Système de contrôle de la quantité d'argent en circulation pour éviter l'inflation :
+
+local PIB = 2000000000.00
+
+local argentinit = function ()
+  minetest.register_on_craft(function (itemstack, player, old_craft_grid, craft_inv)
+    createmoney = false
+    posmoney = 0
+    for i, v in ipairs(old_craft_grid) do
+      --print (i)
+      if v:get_name() == "argent:poincon" or v:get_name() == "argent:tampon" then
+        createmoney = true
+        posmoney = i+3
+      end
+    end
+    if not createmoney then
+      return
+    end
+    if PIB > minetest.registered_items[itemstack:get_name()].param1 then
+      PIB = PIB-minetest.registered_items[itemstack:get_name()].param1
+    else
+      player:get_inventory():set_list("craft",old_craft_grid)
+      itemstack:clear()
+      minetest.chat_send_player(player:get_player_name(), "Plus d'argent dans les caisses!!", true)
+    end
+  end)
+  
+  minetest.register_on_shutdown (function()
+    fic = io.open(minetest.get_worldpath().."/money.txt", "a")
+    if fic == nil then
+      fic = io.open(minetest.get_worldpath().."/money.txt", "w")
+    end
+    fic:write(PIB.."\n")
+    fic:close()
+  end)
+  
+  minetest.register_chatcommand ("pib", {
+    privs = {server = true},
+    params = "",
+    description = "Voir la valeur du pib du serveur moins l'argent en circulation",
+    func = function (player)
+      minetest.chat_send_player (player, "PIB : "..PIB, true)
+     -- minetest.chat_send_player (player, "ARGENT CIRCULANT : "..2000000000.00-PIB, true)
+    end
+  })
+
+  local dejaconn = {}
+
+  minetest.register_on_joinplayer(function (player)
+    local i = 0
+    playermoney = io.open(minetest.get_worldpath().."/moneyplayers.txt", "a")
+    for line in io.lines(minetest.get_worldpath().."/moneyplayers.txt") do
+      if line ~= nil then
+        if player:get_player_name() == line then return end
+      end
+    end
+    print(2)
+    if minetest.get_player_privs(player:get_player_name())["interact"] == true then
+      playermoney:write(player:get_player_name().."\n")
+      player:get_inventory():add_item("main", "argent:billet500 3")
+      minetest.chat_send_player(player:get_player_name(),"Bienvenue a Steinheim. Vous avez recu 1500 Steins, bon jeu.", true)
+    end
+  end)
+
+  minetest.register_chatcommand ("alreadylogged", {
+    privs = {server = true},
+    description = "Imprime dans les log et le chat la liste des joueurs deja connectes ce jour",
+    func = function(name)
+      i = 0
+      while i <= table.getn(dejaconn) do
+        if dejaconn[i] ~= nil then
+          print ("Nom : "..dejaconn[i])
+          minetest.chat_send_player(minetest.get_player_by_name(name):get_player_name(), "Name : "..dejaconn[i].."", true)
+        end
+        i = i+1
+      end
+    end
+  })
+end
+
+local playermny = io.open(minetest.get_worldpath().."/moneyplayers.txt", "r")
+--print(playermny)
+if playermny == nil then
+  playermny = io.open(minetest.get_worldpath().."/moneyplayers.txt", "w")
+end
+playermny:close()
+local fic = io.open(minetest.get_worldpath().."/money.txt", "r")
+print ("[argent] Initialisation du PIB...")
+print ("[argent] Ouverture de la bourse...")
+argentinit()
+if fic == nil then
+  fic = io.open(minetest.get_worldpath().."/money.txt", "w")
+  fic:close()
+  fic = io.open(minetest.get_worldpath().."/money.txt", "a")
+  fic:write("2000000000.00\n")
+  PIB = 2000000000.00
+  return
+end
+money = 0.00
+for line in fic:lines() do
+  if line ~= nil then
+    money = line+0.00
+  end
+end
+fic:close()
+--fic = io.open("minetest.get_worldpath().."/money.txt", "w")
+PIB = money
+
+minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv)
+  if not minetest.registered_items[itemstack:get_name()].groups["argent"] then
+    return
+  end
+  boolmoney = false
+  i = 1
+  while i < 9 do
+    boolmoney = old_craft_grid[i]:get_name() == "argent:poincon" or old_craft_grid[i]:get_name() == "argent:tampon"
+    i = i+1
+  end
+  if boolmoney then
+    PIB = PIB-minetest.registered_items[itemstack:get_name()].param1
+  end
+end)
+
