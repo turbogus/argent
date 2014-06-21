@@ -685,9 +685,9 @@ minetest.register_node("argent:banque", {
     setinventory(pos)
   end,
   can_dig = function(pos, player)
-    if player:get_player_name() == "node_breaker" then
+    --[[if player:get_player_name() == "node_breaker" then
       return minetest.find_node_near(pos, 1, "pipeworks:nodebreaker_on")
-    end
+    end]]--
     local inv = minetest.get_meta(pos):get_inventory()
     return inv:is_empty("sbbinput") and inv:is_empty("sbboutput") and player:get_wielded_item():get_name() == "maptools:pick_admin"
   end,
