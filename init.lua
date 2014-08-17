@@ -243,15 +243,15 @@ minetest.register_craftitem("argent:billet20", {
 })
 
 minetest.register_craft({
-    output="argent:billet20";
+    output="argent:billet20",
     recipe= {
         {"argent:tampon"},
         {"moreores:gold_ingot"},
         {"default:paper"},
-    };
+    },
     replacements= {{"argent:tampon","argent:tampon"},
-    };
-});
+    },
+})
 
 minetest.register_craft({
     output="argent:billet20",
