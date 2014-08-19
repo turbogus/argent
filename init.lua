@@ -32,14 +32,14 @@ minetest.register_craftitem("argent:piece_charbon", {
 })
 
 minetest.register_craft({
-    output = "argent:piece_charbon";
+    output = "argent:piece_charbon",
     recipe = {
         {"argent:poincon"},
         {"default:coal_lump"},
-    };
+    },
     replacements ={{"argent:poincon","argent:poincon"},
-    };
-});
+    },
+})
 
 --Tube de pièce en charbon (9 centimes) :
 minetest.register_craftitem("argent:tube_piece_charbon", {
@@ -77,14 +77,14 @@ minetest.register_craftitem("argent:piece_etain", {
 })
 
 minetest.register_craft({
-    output = "argent:piece_etain";
+    output = "argent:piece_etain",
     recipe = {
         {"argent:poincon"},
         {"moreores:tin_ingot"},
-    };
+    },
     replacements = {{"argent:poincon","argent:poincon"},
-    };
-});
+    },
+})
 
 --Tube de pièce en etain (90 centimes) :
 minetest.register_craftitem("argent:tube_piece_etain", {
@@ -121,14 +121,14 @@ minetest.register_craftitem("argent:piece_cuivre", {
 })
 
 minetest.register_craft({
-    output = "argent:piece_cuivre";
+    output = "argent:piece_cuivre",
     recipe = {
         {"argent:poincon"},
         {"moreores:copper_ingot"},
-    };
+    },
     replacements = {{"argent:poincon","argent:poincon"},
-    };
-});
+    },
+})
 
 --Tube de pièces en cuivre (4€ 50) :
 minetest.register_craftitem("argent:tube_piece_cuivre", {
@@ -164,14 +164,14 @@ minetest.register_craftitem("argent:piece_acier", {
   stack_max = 1000,
 })
 minetest.register_craft({
-    output = "argent:piece_acier";
+    output = "argent:piece_acier",
     recipe = {
         {"argent:poincon"},
         {"default:steel_ingot"},
-    };
+    },
     replacements = {{"argent:poincon","argent:poincon"},
-    };
-});
+    },
+})
 
 --Tube de pièces en acier (9€) :
 minetest.register_craftitem("argent:tube_piece_acier", {
@@ -208,15 +208,15 @@ minetest.register_craftitem("argent:billet10", {
 })
 
 minetest.register_craft({
-    output="argent:billet10";
+    output="argent:billet10",
     recipe= {
         {"argent:tampon"},
         {"moreores:silver_ingot"},
         {"default:paper"},
-    };
+    },
     replacements = {{"argent:tampon","argent:tampon"},
-    };
-});
+    },
+})
 
 minetest.register_craft({
     output="argent:billet10",
@@ -271,15 +271,15 @@ minetest.register_craftitem("argent:billet50", {
 })
 
 minetest.register_craft({
-    output="argent:billet50";
+    output="argent:billet50",
     recipe= {
         {"argent:tampon"},
         {"default:mese_crystal"},
         {"default:paper"},
-    };
+    },
     replacements= {{"argent:tampon","argent:tampon"},
-    };
-});
+    },
+})
 
 minetest.register_craft({
     output="argent:billet50",
@@ -318,15 +318,15 @@ minetest.register_craftitem("argent:billet100", {
 })
 
 minetest.register_craft({
-    output="argent:billet100";
+    output="argent:billet100",
     recipe= {
         {"argent:tampon"},
         {"default:diamond"},
         {"default:paper"},
-    };
+    },
     replacements = {{"argent:tampon","argent:tampon"},
-    };
-});
+    },
+})
 
 minetest.register_craft({
     output="argent:billet100",
@@ -356,15 +356,15 @@ minetest.register_craftitem("argent:billet200", {
 })
 
 minetest.register_craft({
-    output="argent:billet200";
+    output="argent:billet200",
     recipe= {
         {"","argent:tampon",""},
         {"default:diamond","default:diamond",""},
         {"","default:paper",""},
-    };
+    },
     replacements = {{"argent:tampon","argent:tampon"},
-    };
-});
+    },
+})
 
 minetest.register_craft({
     output="argent:billet200",
@@ -393,15 +393,15 @@ minetest.register_craftitem("argent:billet500", {
 })
 
 minetest.register_craft({
-    output="argent:billet500";
+    output="argent:billet500",
     recipe= {
         {"argent:tampon"},
         {"default:mese_block"},
         {"default:paper"},
-    };
+    },
     replacements = {{"argent:tampon","argent:tampon"},
-    };
-});
+    },
+})
 
 minetest.register_craft({
     output="argent:billet500",
@@ -570,7 +570,7 @@ minetest.register_node("argent:banque", {
   on_construct = function(pos)
     local meta = minetest.get_meta(pos)
     meta:set_string("formspec",
-      "invsize[10,10;]"..
+      "invsize[10;10;]"..
       "image[0,0;1,1;tampon.png]"..
       "image[9,0;1,1;poincon.png]"..
       "label[3.5,0;Steinheim Banque]"..
