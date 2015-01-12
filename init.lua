@@ -602,11 +602,7 @@ minetest.register_node("argent:banque", {
   on_construct = function(pos)
     local meta = minetest.get_meta(pos)
     meta:set_string("formspec",
-<<<<<<< HEAD
-      "invsize[10,10;]"..
-=======
       "size[10,10]"..
->>>>>>> da18676d88080f6249a3a265787c36c58aa4de25
       "image[0,0;1,1;tampon.png]"..
       "image[9,0;1,1;poincon.png]"..
       "label[3.5,0;Steinheim Banque]"..
