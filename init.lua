@@ -3,11 +3,7 @@
 Argent, un petit mod permettant de créer une économie sur un serveur minetest.
 Créé par turbogus, Zaraki98, Ze_Escrobar et Mg
 Code et graphisme en GPL
-<<<<<<< HEAD
-Dernière modification par Mg le 19/6/14
-=======
 Dernière modification par Mg le 10/1/15
->>>>>>> da18676d88080f6249a3a265787c36c58aa4de25
 Version stable
 
 ]]--
@@ -89,13 +85,8 @@ minetest.register_craft({
         {"moreores:tin_ingot"},
     },
     replacements = {{"argent:poincon","argent:poincon"},
-<<<<<<< HEAD
-    };
-});
-=======
     },
 })
->>>>>>> da18676d88080f6249a3a265787c36c58aa4de25
 
 --Tube de pièce en etain (90 centimes) :
 minetest.register_craftitem("argent:tube_piece_etain", {
@@ -138,13 +129,8 @@ minetest.register_craft({
         {"moreores:copper_ingot"},
     },
     replacements = {{"argent:poincon","argent:poincon"},
-<<<<<<< HEAD
-    };
-});
-=======
     },
 })
->>>>>>> da18676d88080f6249a3a265787c36c58aa4de25
 
 --Tube de pièces en cuivre (4€ 50) :
 minetest.register_craftitem("argent:tube_piece_cuivre", {
@@ -186,13 +172,8 @@ minetest.register_craft({
         {"default:steel_ingot"},
     },
     replacements = {{"argent:poincon","argent:poincon"},
-<<<<<<< HEAD
-    };
-});
-=======
     },
 })
->>>>>>> da18676d88080f6249a3a265787c36c58aa4de25
 
 --Tube de pièces en acier (9€) :
 minetest.register_craftitem("argent:tube_piece_acier", {
@@ -482,11 +463,7 @@ local argentinit = function ()
   end)
   
   minetest.register_on_shutdown (function()
-<<<<<<< HEAD
-    fic = io.open(minetest.get_worldpath().."/money.txt", "a")
-=======
     local fic = io.open(minetest.get_worldpath().."/money.txt", "a")
->>>>>>> da18676d88080f6249a3a265787c36c58aa4de25
     if fic == nil then
       fic = io.open(minetest.get_worldpath().."/money.txt", "w")
     end
@@ -508,11 +485,7 @@ local argentinit = function ()
 
   minetest.register_on_joinplayer(function (player)
     local i = 0
-<<<<<<< HEAD
-    playermoney = io.open(minetest.get_worldpath().."/moneyplayers.txt", "a")
-=======
     local playermoney = io.open(minetest.get_worldpath().."/moneyplayers.txt", "a")
->>>>>>> da18676d88080f6249a3a265787c36c58aa4de25
     for line in io.lines(minetest.get_worldpath().."/moneyplayers.txt") do
       if line ~= nil then
         if player:get_player_name() == line then return end
@@ -549,13 +522,8 @@ if playermny == nil then
 end
 playermny:close()
 local fic = io.open(minetest.get_worldpath().."/money.txt", "r")
-<<<<<<< HEAD
-print ("[argent] Initialisation du PIB...")
-print ("[argent] Ouverture de la bourse...")
-=======
 minetest.log("action", "[argent] Initialisation du PIB...")
 minetest.log("action", "[argent] Ouverture de la bourse...")
->>>>>>> da18676d88080f6249a3a265787c36c58aa4de25
 argentinit()
 if fic == nil then
   fic = io.open(minetest.get_worldpath().."/money.txt", "w")
@@ -685,18 +653,6 @@ minetest.register_node("argent:banque", {
       inv:set_list("sbbinput", {
         [1] = moneystack:get_name().." "..math.floor((valtot-valprise)/mstackvalf)
       })
-<<<<<<< HEAD
-      print("reste : "..valtot-valprise)
-      if reste == 0 then setinventory(pos) end
-      if reste ~= 0 then
-        cmptr = 14
-        while ((valtot-valprise)-math.floor((valtot-valprise)/mstackvalf))%tabval[cmptr] ~= 0 and cmptr > 1 do
-          print(tabmny[cmptr].." "..reste/tabval[cmptr])
-          cmptr = cmptr-1
-        end
-        if inv:get_list("sbbrecycle")[1]:get_name() == "" then
-          print(tabmny[cmptr].." "..reste/tabval[cmptr])
-=======
       
 	  --if VERBOSE then
 		minetest.log("verbose","reste : "..valtot-valprise)
@@ -711,15 +667,11 @@ minetest.register_node("argent:banque", {
         end
         if inv:get_list("sbbrecycle")[1]:get_name() == "" then
           minetest.log("verbose", tabmny[cmptr].." "..reste/tabval[cmptr])
->>>>>>> da18676d88080f6249a3a265787c36c58aa4de25
           inv:set_list("sbbrecycle", { [1] = tabmny[cmptr].." "..reste/tabval[cmptr]})
         else
           local recyclestack = inv:get_list("sbbrecycle")[1]
           local recyclestackvalf = minetest.registered_items[recyclestack:get_name()].param1
-<<<<<<< HEAD
-          print("You're here")
-=======
->>>>>>> da18676d88080f6249a3a265787c36c58aa4de25
+
           if recyclestackvalf == nil then return end
           local recyval = recyclestackvalf*recyclestack:get_count()
           cmptr = 14
@@ -728,10 +680,6 @@ minetest.register_node("argent:banque", {
           end
           inv:set_list("sbbrecycle", {[1] = tabmny[cmptr].." "..reste/tabval[cmptr]})
         end
-<<<<<<< HEAD
-        print(2)
-=======
->>>>>>> da18676d88080f6249a3a265787c36c58aa4de25
       end
       setinventory(pos)
     end
@@ -741,13 +689,6 @@ minetest.register_node("argent:banque", {
     setinventory(pos)
   end,
   can_dig = function(pos, player)
-<<<<<<< HEAD
-    --[[if player:get_player_name() == "node_breaker" then
-      return minetest.find_node_near(pos, 1, "pipeworks:nodebreaker_on")
-    end]]--
-    local inv = minetest.get_meta(pos):get_inventory()
-    return inv:is_empty("sbbinput") and inv:is_empty("sbboutput") and player:get_wielded_item():get_name() == "maptools:pick_admin"
-=======
     local allowed = false
 	local name = player:get_player_name()
 	local inv = minetest.get_meta(pos):get_inventory()
@@ -761,7 +702,6 @@ minetest.register_node("argent:banque", {
 	allowed = allowed and inv:is_empty("sbbinput")
 	allowed = allowed and inv:is_empty("sbboutput")
     return allowed
->>>>>>> da18676d88080f6249a3a265787c36c58aa4de25
   end,
   on_receive_fields = function (pos, formname, fields, sender)
     if fields.quit then return end
@@ -769,13 +709,8 @@ minetest.register_node("argent:banque", {
     local metadatapaper = ""
     local acttable = minetest.registered_nodes["argent:banque"].param1
     local undermeta = ""
-<<<<<<< HEAD
-    y = table.getn(acttable)
-    u = 0
-=======
     local y = table.getn(acttable)
     local u = 0
->>>>>>> da18676d88080f6249a3a265787c36c58aa4de25
     while y > 0 do
       if acttable[y][3] == sender:get_player_name() then
         undermeta = acttable[y][3].." a echange "..acttable[y][1].."Stein(s) contre "..acttable[y][2].."Stein(s) a la banque en "..acttable[y][4]..","..acttable[y][5]..","..acttable[y][6]
@@ -826,11 +761,7 @@ minetest.register_craftitem("argent:nondispo", {
 
 function setinventory(pos)
       local inv = minetest.get_meta(pos):get_inventory()
-<<<<<<< HEAD
-      tabroom = inv:get_list("sbbinput")
-=======
       local tabroom = inv:get_list("sbbinput")
->>>>>>> da18676d88080f6249a3a265787c36c58aa4de25
       local valf = 0
       if minetest.registered_items[tabroom[1]:get_name()].param1 then
         valf = minetest.registered_items[tabroom[1]:get_name()].param1*tabroom[1]:get_count()
@@ -1005,8 +936,4 @@ minetest.register_craft({
     }
 })
 
-<<<<<<< HEAD
 ]]--
-=======
-]]--
->>>>>>> da18676d88080f6249a3a265787c36c58aa4de25
